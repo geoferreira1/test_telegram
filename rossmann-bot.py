@@ -14,7 +14,7 @@ token = '5829774627:AAEWpqEGlQ1OOoOAfE3_AiXnCLSQcZexq1k'
 #https://api.telegram.org/bot5829774627:AAEWpqEGlQ1OOoOAfE3_AiXnCLSQcZexq1k/getUpdates
 
 # Webhook
-#https://api.telegram.org/bot5829774627:AAEWpqEGlQ1OOoOAfE3_AiXnCLSQcZexq1k/setWebhook?url=https://e88b913d1b1fee.lhr.life
+#https://api.telegram.org/bot5829774627:AAEWpqEGlQ1OOoOAfE3_AiXnCLSQcZexq1k/setWebhook?url=https://rossmann-telegram-bot-geo.onrender.com
 
 # send message
 #https://api.telegram.org/bot5829774627:AAEWpqEGlQ1OOoOAfE3_AiXnCLSQcZexq1k/sendMessage?chat_id=846558943&text=Hi Geovana, I am doing good, tks!
@@ -67,8 +67,8 @@ def predict(data):
     return d1
 
 def parse_message(message):
-    chat_id = message['result']['chat']['id']
-    store_id = message['result']['text']
+    chat_id = message['message']['chat']['id']
+    store_id = message['message']['text']
 
     store_id = store_id.replace('/','')
 
