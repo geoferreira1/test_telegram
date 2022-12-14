@@ -1,17 +1,18 @@
-import pandas as pd
 import json
-import requests
-from flask import Flask, request, Response
 import os
-import telebot
 import re
+
+import pandas as pd
+import requests
+import telebot
+from flask import Flask, request
 
 # constans
 token = '5829774627:AAEWpqEGlQ1OOoOAfE3_AiXnCLSQcZexq1k'
 
 
 bot = telebot.TeleBot(token)
-bot.set_webhook()
+server = Flask(__name__)
 
 def load_dataset(store_id):
     # loading test dataset
@@ -93,14 +94,29 @@ Para voltar, digite Sair."""
 
 def verificar(message):
     return True
+
 @bot.message_handler(func=verificar)
-def responder(mensagem):
+def responder(message):
+    text = """
+    Olá, Bem vindo ao ROSSMANN BOT.
+Aqui é possivel obter as previsões de vendas nas próximas 6 semanas.
 
-    texto = """Olá, Bem vindo ao ROSSMANN BOT.
-            \nAqui é possivel obter as previsões de vendas nas próximas 6 semanas.
-            \nFavor, digite o número da loja para obter a previsão de vendas."""
+Favor, digite o número da loja para obter a previsão de vendas."""
 
-    bot.reply_to(mensagem,texto )
+    bot.reply_to(message, text)
+
+@server.route('/' + token, methods=['POST'])
+def getMessage():
+    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    return "!", 200
 
 
-bot.polling()
+@server.route("/")
+def webhook():
+    bot.remove_webhook()
+    return "!", 200
+
+
+if __name__ == "__main__":
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+
