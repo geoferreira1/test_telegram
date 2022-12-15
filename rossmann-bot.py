@@ -1,10 +1,12 @@
-import json
-import os
-import re
-
-import pandas as pd
 import requests
+import pandas as pd
+import json
+import re
 import telebot
+import time
+import asyncio
+import os, sys
+from requests.exceptions import ConnectionError, ReadTimeout
 from flask import Flask, request
 
 # constans
@@ -114,7 +116,7 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url='https://rossmannpredictonlinebot.onrender.com' + TOKEN)
+    bot.set_webhook(url='https://rossmannpredictonlinebot.onrender.com' + token)
     return "!", 200
 
 
