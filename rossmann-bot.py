@@ -114,6 +114,7 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
+    bot.set_webhook(url='https://rossmannpredictonlinebot.onrender.com' + TOKEN)
     return "!", 200
 
 
