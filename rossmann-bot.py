@@ -71,6 +71,7 @@ def responder_2(message):
     data = load_dataset(store_id)
 
     if data != 'error':
+
         #prediction
         d1 = predict(data)
         # calcution
@@ -94,6 +95,8 @@ Para voltar, digite Sair."""
 
     # bot.reply_to(message, store_id)
 
+
+
 def verificar(message):
     return True
 
@@ -116,7 +119,7 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url='https://rossmannpredictonlinebot.onrender.com' + token)
+    bot.set_webhook(url='https://rossmannpredictonlinebot.onrender.com/' + token)
     return "!", 200
 
 
